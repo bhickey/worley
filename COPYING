@@ -1,0 +1,14 @@
+   Copyright 1994, 2002 by Steven Worley
+   This software may be modified and redistributed without restriction
+   provided this comment header remains intact in the source code.
+   This code is provided with no warrantee, express or implied, for
+   any purpose.
+   
+   A detailed description and application examples can be found in the
+   1996 SIGGRAPH paper "A Cellular Texture Basis Function" and
+   especially in the 2002 book "Texturing and Modeling, a Procedural
+   Approach, 3rd edition." There is also extra information on the web
+   site http://www.worley.com/cellular.html .
+
+   If you do find interesting uses for this tool, and especially if
+   you enhance it, please drop me an email at steve@worley.com.
