@@ -43,7 +43,14 @@
    density in the source code, at the expense of slower
    computation. The book lists the details of this tuning.  */
 
-void Worley(double at[3], long max_order,
-	    double F[2], double delta[2][3], unsigned long ID[2]);
+#ifndef __WORLEY__NOISE__
+#define __WORLEY__NOISE__
+#pragma once
 
+#include <stdint.h>
+#include <stddef.h>
 
+void Worley(double at[3], size_t max_order,
+	    double F[2], double delta[2][3], uint32_t ID[2]);
+
+#endif /* __WORLEY__NOISE__ */

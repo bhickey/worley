@@ -15,18 +15,19 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <stdint.h>
 #include "cellular.h"  /* Function prototype */
 
-/* This macro is a *lot* faster than using (long)floor() on an x86 CPU.
+/* This macro is a *lot* faster than using (int32_t)floor() on an x86 CPU.
    It actually speeds up the entire Worley() call with almost 10%.
    Added by Stefan Gustavson, October 2003. */
-#define LFLOOR(x) ((x)<0 ? ((long)x-1) : ((long)x) )
+#define LFLOOR(x) ((x)<0 ? ((int32_t)x-1) : ((int32_t)x) )
 
 /* A hardwired lookup table to quickly determine how many feature
    points should be in each spatial cube. We use a table so we don't
    need to make multiple slower tests.  A random number indexed into
    this array will give an approximate Poisson distribution of mean
-   density 2.5. Read the book for the longwinded explanation. */
+   density 2.5. Read the book for the int32_twinded explanation. */
 
 static int Poisson_count[256]=
 {4,3,1,1,1,2,4,2,2,2,5,1,0,2,1,2,2,0,4,3,2,1,2,1,3,2,2,4,2,2,5,1,2,3,2,2,2,2,2,3,
@@ -43,18 +44,18 @@ static int Poisson_count[256]=
 
 /* the function to merge-sort a "cube" of samples into the current best-found
    list of values. */
-static void AddSamples(long xi, long yi, long zi, long max_order,
+static void AddSamples(int32_t xi, int32_t yi, int32_t zi, size_t max_order,
 			double at[3], double *F,
-			double (*delta)[3], unsigned long *ID);
+			double (*delta)[3], uint32_t *ID);
 
 
 /* The main function! */
-void Worley(double at[3], long max_order,
-	    double *F, double (*delta)[3], unsigned long *ID)
+void Worley(double at[3], size_t max_order,
+	    double *F, double (*delta)[3], uint32_t *ID)
 {
   double x2,y2,z2, mx2, my2, mz2;
   double new_at[3];
-  long int_at[3], i;
+  int32_t int_at[3], i;
   
   /* Initialize the F values to "huge" so they will be replaced by the
      first real sample tests. Note we'll be storing and comparing the
@@ -75,7 +76,7 @@ void Worley(double at[3], long max_order,
   /* A simple way to compute the closest neighbors would be to test all
      boundary cubes exhaustively. This is simple with code like: 
      {
-       long ii, jj, kk;
+       int32_t ii, jj, kk;
        for (ii=-1; ii<=1; ii++) for (jj=-1; jj<=1; jj++) for (kk=-1; kk<=1; kk++)
        AddSamples(int_at[0]+ii,int_at[1]+jj,int_at[2]+kk, 
        max_order, new_at, F, delta, ID);
@@ -175,13 +176,13 @@ void Worley(double at[3], long max_order,
 
 
 
-static void AddSamples(long xi, long yi, long zi, long max_order,
+static void AddSamples(int32_t xi, int32_t yi, int32_t zi, size_t max_order,
 		       double at[3], double *F,
-		       double (*delta)[3], unsigned long *ID)
+		       double (*delta)[3], uint32_t *ID)
 {
   double dx, dy, dz, fx, fy, fz, d2;
-  long count, i, j, index;
-  unsigned long seed, this_id;
+  int32_t count, i, j, index;
+  uint32_t seed, this_id;
   
   /* Each cube has a random number seed based on the cube's ID number.
      The seed might be better if it were a nonlinear hash like Perlin uses
