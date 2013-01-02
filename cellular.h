@@ -55,6 +55,6 @@
 #include <stddef.h>
 
 void Worley(double at[3], size_t max_order,
-	    double F[2], double delta[2][3], uint32_t ID[2]);
+	    double *F, double *delta[3], uint32_t *ID);
 
 #endif /* __WORLEY__NOISE__ */
