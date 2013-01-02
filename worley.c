@@ -22,7 +22,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdint.h>
-#include "cellular.h"  /* Function prototype */
+#include "worley.h"  /* Function prototype */
 
 /* This macro is a *lot* faster than using (int32_t)floor() on an x86 CPU.
    It actually speeds up the entire Worley() call with almost 10%.

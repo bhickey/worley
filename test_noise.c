@@ -1,4 +1,4 @@
-#include "cellular.c"
+#include "worley.h"
 
 #include <assert.h>
 #include <iostream>
