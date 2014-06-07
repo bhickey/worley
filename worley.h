@@ -49,7 +49,6 @@
 
 #ifndef __WORLEY__NOISE__
 #define __WORLEY__NOISE__
-#pragma once
 
 #include <stdint.h>
 #include <stddef.h>
